@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_14_134530) do
+ActiveRecord::Schema.define(version: 2020_04_14_143614) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer "physician_id", null: false
@@ -20,6 +20,20 @@ ActiveRecord::Schema.define(version: 2020_04_14_134530) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["patient_id"], name: "index_appointments_on_patient_id"
     t.index ["physician_id"], name: "index_appointments_on_physician_id"
+  end
+
+  create_table "documents", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "paragraphs", force: :cascade do |t|
+    t.string "name"
+    t.integer "section_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["section_id"], name: "index_paragraphs_on_section_id"
   end
 
   create_table "patients", force: :cascade do |t|
@@ -34,6 +48,16 @@ ActiveRecord::Schema.define(version: 2020_04_14_134530) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "sections", force: :cascade do |t|
+    t.string "name"
+    t.integer "document_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["document_id"], name: "index_sections_on_document_id"
+  end
+
   add_foreign_key "appointments", "patients"
   add_foreign_key "appointments", "physicians"
+  add_foreign_key "paragraphs", "sections"
+  add_foreign_key "sections", "documents"
 end
