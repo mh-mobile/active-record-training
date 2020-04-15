@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2020_04_15_121443) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "assemblies_parts", force: :cascade do |t|
+  create_table "assemblies_parts", id: false, force: :cascade do |t|
     t.integer "assembly_id", null: false
     t.integer "part_id", null: false
     t.index ["assembly_id"], name: "index_assemblies_parts_on_assembly_id"
